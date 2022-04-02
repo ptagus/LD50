@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    GameObject bear;
+    GameController gc;
+    public GameObject bearPrefab;
     public Transform handpoint;
     public float speed = 1;
     Vector3 move = Vector3.down;
@@ -11,7 +14,7 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gc = GameController.Instance;
     }
 
     // Update is called once per frame
@@ -20,6 +23,11 @@ public class Hand : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             handOn = true;
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            handOn = bearTaken = false;
+            Destroy(bear);
         }
         if (handOn)
             TakeABear(move * Time.deltaTime * speed);
@@ -34,12 +42,23 @@ public class Hand : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (!bearTaken)
         {
-            handOn = false;
-            bearTaken = true;
-            collision.GetComponent<AIMove>().InHand(handpoint);
+            if (collision.tag == "Enemy")
+            {
+                handOn = false;
+                bearTaken = true;
+                collision.GetComponent<AIMove>().InHand(handpoint);
+                bear = collision.gameObject;
+            }
+            if (collision.tag == "Floor")
+            {
+                handOn = false;
+                bearTaken = true;
+                bear = Instantiate(bearPrefab, handpoint.position, Quaternion.identity, handpoint);
+            }
+            gc.SetFloorPosition();
+            Debug.Log("Floorlevel" + collision.name);
         }
-        Debug.Log(collision.name);
     }
 }
