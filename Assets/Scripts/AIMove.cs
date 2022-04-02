@@ -144,9 +144,11 @@ public class AIMove : MonoBehaviour
 
     public void InHand(UnityEngine.Transform parent)
     {
+        Destroy(rb);
+        animator.animation.Stop();
         move = false;
         transform.position = parent.position;
         transform.SetParent(parent);
-        GetComponent<Rigidbody2D>().isKinematic = true;
+        //GetComponent<Rigidbody2D>().isKinematic = true;
     }
 }

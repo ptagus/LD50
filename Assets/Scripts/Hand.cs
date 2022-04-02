@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
     GameObject bear;
     GameController gc;
     public GameObject bearPrefab;
+    public GameObject player;
     public Transform handpoint;
     public float speed = 1;
     Vector3 move = Vector3.down;
@@ -24,15 +25,15 @@ public class Hand : MonoBehaviour
         {
             handOn = true;
         }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            handOn = bearTaken = false;
-            Destroy(bear);
-        }
         if (handOn)
             TakeABear(move * Time.deltaTime * speed);
         if (bearTaken)
             TakeABear(move * Time.deltaTime * -speed);
+        if (transform.position.y > 30)
+        {
+            Destroy(bear);
+            GetNewBear();
+        }
     }
 
     void TakeABear(Vector3 pos)
@@ -56,9 +57,23 @@ public class Hand : MonoBehaviour
                 handOn = false;
                 bearTaken = true;
                 bear = Instantiate(bearPrefab, handpoint.position, Quaternion.identity, handpoint);
+                bear.transform.localScale = new Vector3(0.04f, 0.02f, 1);
             }
-            gc.SetFloorPosition();
+            if (collision.tag == "Player")
+            {
+                Debug.Log("End" + collision.name);
+                gc.ShowLoseWindow();
+            }
+            gc.SetNewScore();
+            //gc.SetFloorPosition();
             Debug.Log("Floorlevel" + collision.name);
         }
+    }
+
+    void GetNewBear()
+    {
+        transform.position = new Vector3(player.transform.position.x, transform.position.y, 0);
+        bearTaken = false;
+        handOn = true;
     }
 }
