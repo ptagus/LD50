@@ -11,10 +11,12 @@ public class Hand : MonoBehaviour
     public Transform handpoint;
     public float speed = 1;
     Vector3 move = Vector3.down;
-    bool handOn, bearTaken;
+    Vector3 playerPos;
+    bool handOn, bearTaken, end;
     // Start is called before the first frame update
     void Start()
     {
+        playerPos = player.transform.position;
         gc = GameController.Instance;
     }
 
@@ -23,16 +25,22 @@ public class Hand : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            handOn = true;
+            end = true;
         }
         if (handOn)
-            TakeABear(move * Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, playerPos, Time.deltaTime * speed);
         if (bearTaken)
             TakeABear(move * Time.deltaTime * -speed);
         if (transform.position.y > 30)
         {
             Destroy(bear);
             GetNewBear();
+        }
+        if(end)
+        {
+            handOn = false;
+            bearTaken = false;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
         }
     }
 
@@ -72,7 +80,8 @@ public class Hand : MonoBehaviour
 
     void GetNewBear()
     {
-        transform.position = new Vector3(player.transform.position.x, transform.position.y, 0);
+        playerPos = player.transform.position - Vector3.up;
+        transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
         bearTaken = false;
         handOn = true;
     }
