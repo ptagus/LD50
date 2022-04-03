@@ -206,7 +206,9 @@ public class AIMove : MonoBehaviour
     public void InHand(UnityEngine.Transform parent)
     {
         Destroy(rb);
-        animator.animation.Stop();
+        animator.animation.Play("Idle");
+        stateTimer = 100;
+        jumptimer = 100;
         move = false;
         transform.position = parent.position;
         transform.SetParent(parent);

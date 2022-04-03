@@ -15,6 +15,7 @@ public class Hand : MonoBehaviour
     GameObject bear;
     float yborder;
     float speed = 1;
+    float deltaSpeed;
     Vector3 move = Vector3.down;
     Vector3 playerPos;
     bool handOn, bearTaken, end, animstart, needNew, ready;
@@ -27,6 +28,7 @@ public class Hand : MonoBehaviour
         gc = GameController.Instance;
         speed = gc.handSpeed;
         yborder = gc.yBorder;
+        deltaSpeed = gc.handDeltaSpeed;
         handOn = true;
     }
 
@@ -39,7 +41,7 @@ public class Hand : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, playerPos, Time.deltaTime * speed);
             if (bearTaken)
                 TakeABear(move * Time.deltaTime * -speed);
-            if (transform.position.y > yborder)
+            if (transform.position.y > yborder && bearTaken)
             {
                 Destroy(bear);
                 GetNewBear();
@@ -87,6 +89,7 @@ public class Hand : MonoBehaviour
             bear.GetComponent<AIMove>().enabled = false;
             bear.GetComponent<Rigidbody2D>().isKinematic = true;
             bear.transform.localScale = new Vector3(0.25f, 0.25f, 1);
+            gc.SetFloorDown();
         }
         if (tag == "Enemy")
         {
@@ -95,6 +98,7 @@ public class Hand : MonoBehaviour
             go.GetComponent<AIMove>().InHand(handpoint);
             bear = go;
             needNew = true;
+            gc.SetFloorDown();
         }
     }
 
@@ -129,6 +133,7 @@ public class Hand : MonoBehaviour
         }
         transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
         bearTaken = false;
+        speed += deltaSpeed;
         if (gc.end)
         {
             end = gc.end;

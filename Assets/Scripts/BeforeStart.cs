@@ -23,7 +23,7 @@ public class BeforeStart : MonoBehaviour
 
     void StartCounter()
     {
-        if (currentCount == 2)
+        if (currentCount == 3)
         {
             gc.SetReady();
             this.gameObject.SetActive(false);

@@ -41,7 +41,12 @@ public class GameController : MonoBehaviour
     public bool end;
     [Header("Hand")]
     public float handSpeed;
+    public float handDeltaSpeed;
     public float yBorder;
+
+    [Header("Music")]
+    public AudioClip HandTakeABear;
+    public AudioClip EatBear;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -90,6 +95,11 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void SetFloorDown()
+    {
+        floor.position -= new Vector3(0, floorSpeedDown, 0);
+    }
+
     public void SetNewScore()
     {
         score++;
@@ -98,7 +108,6 @@ public class GameController : MonoBehaviour
         {
             end = true;
         }
-        floor.position -= new Vector3(0, floorSpeedDown, 0);
     }
 
     public void Restart()
