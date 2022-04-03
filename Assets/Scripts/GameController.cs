@@ -8,7 +8,7 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-    public TMP_Text text;
+    public Text text;
     int score = 0;
     public bool ready;
     public Transform floor;
