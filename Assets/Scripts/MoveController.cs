@@ -36,7 +36,7 @@ public class MoveController : MonoBehaviour
             if (move.x == 0)
                 Stay();
 
-            if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
+            if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer && !jumping)
             {
                 Jump();
             }
@@ -74,6 +74,7 @@ public class MoveController : MonoBehaviour
 
     void Jump()
     {
+        Debug.Log("startJump");
         jumping = true;
         animator.animation.timeScale = gc.enemyJumpSpeed;
         animator.animation.Play("Jump");
@@ -98,6 +99,7 @@ public class MoveController : MonoBehaviour
 
     public void StopJump()
     {
+        Debug.Log("StopJump");
         jumping = false;
         if (!move)
         {

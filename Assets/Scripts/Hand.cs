@@ -35,10 +35,6 @@ public class Hand : MonoBehaviour
     {
         if (ready)
         {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                end = true;
-            }
             if (handOn)
                 transform.position = Vector3.MoveTowards(transform.position, playerPos, Time.deltaTime * speed);
             if (bearTaken)
@@ -48,7 +44,7 @@ public class Hand : MonoBehaviour
                 Destroy(bear);
                 GetNewBear();
             }
-            if (end)
+            if (end && !bearTaken)
             {
                 handOn = false;
                 bearTaken = false;
@@ -68,8 +64,10 @@ public class Hand : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!animstart)
+        Debug.Log("Handing!" + collision.name);
+        if (!animstart && (collision.tag == "Player" || collision.tag == "Enemy" || collision.tag == "Floor"))
         {
+            Debug.Log("Great Handing!" + collision.name);
             Taken();
             animstart = true;
             if (collision.tag == "Player")
@@ -102,16 +100,19 @@ public class Hand : MonoBehaviour
 
     void Taken()
     {
-        gc.SetNewScore();
         animator.animation.Play("animtion0", 1);
     }
 
     void GetNewBear()
     {
+        gc.SetNewScore();
         takePlayerCount++;
         if (needNew)
         {
-            gc.CreateNewBoy();
+            if (!end)
+            {
+                gc.CreateNewBoy();
+            }
             needNew = false;
         }
         animstart = false;
@@ -124,10 +125,18 @@ public class Hand : MonoBehaviour
         }
         else
         {
-            playerPos = new Vector2(Random.Range(-30, 30), player.transform.position.y - 1);
+            playerPos = new Vector2(Random.Range(-30, 20), player.transform.position.y - 1);
         }
         transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
         bearTaken = false;
-        handOn = true;
+        if (gc.end)
+        {
+            end = gc.end;
+            handOn = false;
+        }
+        else
+        {
+            handOn = true;
+        }
     }
 }
