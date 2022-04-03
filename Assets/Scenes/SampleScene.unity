@@ -1681,8 +1681,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numbers:
-  - {fileID: 21300000, guid: 86ed4efceeae48646a6f4526f17dcfeb, type: 3}
-  - {fileID: 21300000, guid: 3e73fdc522501924db61624d656d0163, type: 3}
+  - {fileID: 21300000, guid: ba8d57456e5bcea408e6ce3bf48a40d3, type: 3}
+  - {fileID: 21300000, guid: 5522c34d644d54a4bb29ca8a7582d843, type: 3}
+  - {fileID: 21300000, guid: b13e04a6a8c2b8946982587d3a28afca, type: 3}
   img: {fileID: 1714782377}
 --- !u!114 &848300858
 MonoBehaviour:
@@ -1955,8 +1956,8 @@ RectTransform:
   m_Father: {fileID: 1006394665}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.40600002, y: 0.22636247}
-  m_AnchorMax: {x: 0.91600007, y: 0.7736376}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1982,7 +1983,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0e82c1b08145123418ab763313292ece, type: 3}
-    m_FontSize: 14
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2324,7 +2325,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d10482a3e2de9a42ae4f814ea4c54a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f7ebdd900836b144a74ccf16d88461b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
