@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -490,11 +490,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff63d74707f80b43b95990b30fe0235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yborder: 33
   bearPrefab: {fileID: 3423508641118236381, guid: 2d57056fe4a732543a58a806ccaf2213, type: 3}
   player: {fileID: 1914627576}
   handpoint: {fileID: 329658525}
-  speed: 10
 --- !u!114 &178224372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,7 +797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329658524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.53, y: 0.14, z: 0}
+  m_LocalPosition: {x: -0.05, y: -0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1130,7 +1128,7 @@ MonoBehaviour:
   text: {fileID: 565670934}
   floor: {fileID: 458733267}
   LoseWindow: {fileID: 828698794}
-  HowMuchEnemies: 5
+  HowMuchEnemies: 100
   enemies:
   - {fileID: 3819260003919734819, guid: fbc30a36874b82046a77aba00562293b, type: 3}
   - {fileID: 3423508641118236381, guid: 2d57056fe4a732543a58a806ccaf2213, type: 3}
@@ -1147,7 +1145,7 @@ MonoBehaviour:
   - {fileID: 1393063104}
   - {fileID: 2115325744}
   - {fileID: 625847874}
-  enemySpeed: 1
+  enemySpeed: 4
   enemyJumpPower: 10
   JumpTimerMin: 3
   JumpTimerMax: 10
@@ -1155,12 +1153,13 @@ MonoBehaviour:
   StateChengeTimerMax: 10
   enemyRunSpeed: 1
   enemyIdleSpeed: 1
-  enemyJumpSpeed: 1
+  enemyJumpSpeed: 0.5
   enemyStandSpeed: 1
-  playerSpeed: 2
-  PlayerPushPower: 2
-  floorSpeedDown: 0.1
-  handSpeed: 0
+  playerSpeed: 5
+  PlayerPushPower: 10
+  floorSpeedDown: 10
+  handSpeed: 10
+  yBorder: 35
 --- !u!4 &460548144
 Transform:
   m_ObjectHideFlags: 0
@@ -1785,7 +1784,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -3126,7 +3125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5094970643232491739, guid: 447106b3bfcb88e4fb5f5d1936dc289c, type: 3}
       propertyPath: _flipX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5373539435292262644, guid: 447106b3bfcb88e4fb5f5d1936dc289c, type: 3}
       propertyPath: m_IsActive
