@@ -33,6 +33,12 @@ public class GameController : MonoBehaviour
     [Header("PlayerParams")]
     public float playerSpeed;
     public float PlayerPushPower;
+
+    [Header("Floor")]
+    public float floorSpeedDown;
+
+    [Header("Hand")]
+    public float handSpeed;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -67,9 +73,16 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void CreateNewBoy()
+    {
+        int boy = Random.Range(0, enemies.Length);
+        int point = Random.Range(0, spawnPoints.Length);
+        Instantiate(enemies[boy], spawnPoints[point].transform.position, Quaternion.identity);
+    }
+
     public void SetFloorPosition()
     {
-        floor.position -= new Vector3(0, 0.1f, 0);
+        floor.position -= new Vector3(0, floorSpeedDown, 0);
     }
 
     public void ShowLoseWindow()
