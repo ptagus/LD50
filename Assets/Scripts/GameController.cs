@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public TMP_Text text;
     int score = 0;
+    public bool ready;
     public Transform floor;
     public GameObject LoseWindow;
 
@@ -55,13 +56,14 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        CreateBoys();
+        
     }
 
 //condemn to death
-    void Update()
+    public void SetReady()
     {
-        
+        ready = true;
+        CreateBoys();
     }
 
     void CreateBoys()

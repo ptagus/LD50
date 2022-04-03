@@ -17,7 +17,7 @@ public class Hand : MonoBehaviour
     float speed = 1;
     Vector3 move = Vector3.down;
     Vector3 playerPos;
-    bool handOn, bearTaken, end, animstart, needNew;
+    bool handOn, bearTaken, end, animstart, needNew, ready;
     int takePlayerCount;
     // Start is called before the first frame update
     void Start()
@@ -33,24 +33,31 @@ public class Hand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (ready)
         {
-            end = true;
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                end = true;
+            }
+            if (handOn)
+                transform.position = Vector3.MoveTowards(transform.position, playerPos, Time.deltaTime * speed);
+            if (bearTaken)
+                TakeABear(move * Time.deltaTime * -speed);
+            if (transform.position.y > yborder)
+            {
+                Destroy(bear);
+                GetNewBear();
+            }
+            if (end)
+            {
+                handOn = false;
+                bearTaken = false;
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
+            }
         }
-        if (handOn)
-            transform.position = Vector3.MoveTowards(transform.position, playerPos, Time.deltaTime * speed);
-        if (bearTaken)
-            TakeABear(move * Time.deltaTime * -speed);
-        if (transform.position.y > yborder)
+        else
         {
-            Destroy(bear);
-            GetNewBear();
-        }
-        if(end)
-        {
-            handOn = false;
-            bearTaken = false;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
+            ready = gc.ready;
         }
     }
 

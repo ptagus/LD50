@@ -18,7 +18,7 @@ public class AIMove : MonoBehaviour
     float stateTimer, jumptimer;
     float jumpforce;
     BearsStates bstate;
-    bool push, jumping, move, fall;
+    bool push, jumping, move, fall, ready;
     float speed = 1;
     Rigidbody2D rb;
     Quaternion quaternion = new Quaternion();
@@ -43,52 +43,59 @@ public class AIMove : MonoBehaviour
 
     void Update()
     {
-        stateTimer -= Time.deltaTime;
-        if (stateTimer < 0 && !jumping)
+        if (ready)
         {
-            bstate = SetNewState();
-            stateTimer = gc.SetStateTimer();
-        }
-
-        jumptimer -= Time.deltaTime;
-        if (jumptimer < 0 && move)
-        {
-            Jump();
-            jumptimer = gc.SetJumpTimer();
-        }
-
-        if (bstate == BearsStates.Moving)
-        {
-            Vector3 move = new Vector3(speed, 0, 0);
-            if (move.x != 0)
-                Moving(move * Time.deltaTime * Mathf.Abs(speed));
-        }
-
-        if (push)
-        {
-            transform.Rotate(new Vector3(0, 0, 1));
-            if (Mathf.Abs(transform.rotation.eulerAngles.z) >= 90)
+            stateTimer -= Time.deltaTime;
+            if (stateTimer < 0 && !jumping)
             {
-                push = false;
+                bstate = SetNewState();
+                stateTimer = gc.SetStateTimer();
+            }
+
+            jumptimer -= Time.deltaTime;
+            if (jumptimer < 0 && move)
+            {
+                Jump();
+                jumptimer = gc.SetJumpTimer();
+            }
+
+            if (bstate == BearsStates.Moving)
+            {
+                Vector3 move = new Vector3(speed, 0, 0);
+                if (move.x != 0)
+                    Moving(move * Time.deltaTime * Mathf.Abs(speed));
+            }
+
+            if (push)
+            {
+                transform.Rotate(new Vector3(0, 0, 1));
+                if (Mathf.Abs(transform.rotation.eulerAngles.z) >= 90)
+                {
+                    push = false;
+                }
+            }
+
+            if (fall)
+            {
+                StandUpStart();
+                fall = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Fall();
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                animator.animation.Stop();
+                move = false;
+                push = true;
             }
         }
-
-        if (fall)
+        else
         {
-            StandUpStart();
-            fall = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Fall();
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            animator.animation.Stop();
-            move = false;
-            push = true;
+            ready = gc.ready;
         }
     }
 
