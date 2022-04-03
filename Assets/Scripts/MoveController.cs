@@ -13,7 +13,7 @@ public class MoveController : MonoBehaviour
     float pushpower, currentPushPower;
     float playerSpeed;
 
-    bool groundedPlayer, move, jumping;
+    bool groundedPlayer, move, jumping, ready;
     void Start()
     {
         animator = GetComponent<UnityArmatureComponent>();
@@ -28,19 +28,26 @@ public class MoveController : MonoBehaviour
 
     void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        if (move.x != 0)
-            Moving(move * Time.deltaTime * playerSpeed);
-        if (move.x == 0)
-            Stay();
+        if (ready)
+        {
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+            if (move.x != 0)
+                Moving(move * Time.deltaTime * playerSpeed);
+            if (move.x == 0)
+                Stay();
 
-        if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
-        {
-            Jump();
+            if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer && !jumping)
+            {
+                Jump();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Push();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else
         {
-            Push();
+            ready = gc.ready;
         }
     }
 
@@ -67,6 +74,7 @@ public class MoveController : MonoBehaviour
 
     void Jump()
     {
+        Debug.Log("startJump");
         jumping = true;
         animator.animation.timeScale = gc.enemyJumpSpeed;
         animator.animation.Play("Jump");
@@ -91,6 +99,7 @@ public class MoveController : MonoBehaviour
 
     public void StopJump()
     {
+        Debug.Log("StopJump");
         jumping = false;
         if (!move)
         {

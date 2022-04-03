@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public TMP_Text text;
     int score = 0;
+    public bool ready;
     public Transform floor;
     public GameObject LoseWindow;
 
@@ -36,7 +37,8 @@ public class GameController : MonoBehaviour
 
     [Header("Floor")]
     public float floorSpeedDown;
-
+    public float endOfFloor;
+    public bool end;
     [Header("Hand")]
     public float handSpeed;
     public float yBorder;
@@ -55,13 +57,14 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        CreateBoys();
+        
     }
 
 //condemn to death
-    void Update()
+    public void SetReady()
     {
-        
+        ready = true;
+        CreateBoys();
     }
 
     void CreateBoys()
@@ -81,11 +84,6 @@ public class GameController : MonoBehaviour
         Instantiate(enemies[boy], spawnPoints[point].transform.position, Quaternion.identity);
     }
 
-    public void SetFloorPosition()
-    {
-        floor.position -= new Vector3(0, floorSpeedDown, 0);
-    }
-
     public void ShowLoseWindow()
     {
         LoseWindow.SetActive(true);
@@ -95,8 +93,12 @@ public class GameController : MonoBehaviour
     public void SetNewScore()
     {
         score++;
-        text.text = "Score: " + score; 
-        floor.position -= new Vector3(0, 0.1f, 0);
+        text.text = "Score: " + score;
+        if (floor.transform.position.y < endOfFloor)
+        {
+            end = true;
+        }
+        floor.position -= new Vector3(0, floorSpeedDown, 0);
     }
 
     public void Restart()
