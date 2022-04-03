@@ -130,9 +130,9 @@ public class MoveController : MonoBehaviour
 
     void Push()
     {
-        Debug.Log(enemy.name);
         if (enemy is not null)
         {
+            GetComponent<AudioSource>().Play();
             if (transform.rotation.eulerAngles.y == 0)
             {
                 currentPushPower = pushpower;

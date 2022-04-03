@@ -12,8 +12,11 @@ public class GameController : MonoBehaviour
     int score = 0;
     public bool ready;
     public Transform floor;
-    public GameObject LoseWindow;
 
+    [Header("Windows")]
+    public GameObject LoseWindow;
+    public GameObject Pause;
+    public Text scoreText;
     [Header("EnemyPrefabs")]
     public int HowMuchEnemies;
     public GameObject[] enemies;
@@ -45,6 +48,7 @@ public class GameController : MonoBehaviour
     public float yBorder;
 
     [Header("Music")]
+    public AudioSource GameSoundes;
     public AudioClip HandTakeABear;
     public AudioClip EatBear;
     private void Awake()
@@ -89,31 +93,25 @@ public class GameController : MonoBehaviour
         Instantiate(enemies[boy], spawnPoints[point].transform.position, Quaternion.identity);
     }
 
-    public void ShowLoseWindow()
-    {
-        LoseWindow.SetActive(true);
-        Time.timeScale = 0;
-    }
+   
 
     public void SetFloorDown()
     {
+        GameSoundes.clip = HandTakeABear;
+        GameSoundes.Play();
         floor.position -= new Vector3(0, floorSpeedDown, 0);
     }
 
     public void SetNewScore()
     {
+        GameSoundes.clip = EatBear;
+        GameSoundes.Play();
         score++;
         text.text = "Score: " + score;
         if (floor.transform.position.y < endOfFloor)
         {
             end = true;
         }
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(0);
     }
 
     public float SetJumpTimer()
@@ -124,5 +122,37 @@ public class GameController : MonoBehaviour
     public float SetStateTimer()
     {
         return Random.Range(StateChengeTimerMin, StateChengeTimerMax);
+    }
+
+    //UIMenu
+    public void ShowLoseWindow()
+    {
+        LoseWindow.SetActive(true);
+        scoreText.text = "Score " + score;
+        Time.timeScale = 0;
+    }
+
+    public void OpenPause()
+    {
+        Pause.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Continue()
+    {
+        Pause.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void Menu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
     }
 }

@@ -12,6 +12,7 @@ public class Hand : MonoBehaviour
     public GameObject player;
     public UnityEngine.Transform handpoint;
 
+    UnityEngine.Transform floor;
     GameObject bear;
     float yborder;
     float speed = 1;
@@ -29,6 +30,7 @@ public class Hand : MonoBehaviour
         speed = gc.handSpeed;
         yborder = gc.yBorder;
         deltaSpeed = gc.handDeltaSpeed;
+        floor = gc.floor;
         handOn = true;
     }
 
@@ -129,7 +131,7 @@ public class Hand : MonoBehaviour
         }
         else
         {
-            playerPos = new Vector2(Random.Range(-30, 20), player.transform.position.y - 1);
+            playerPos = new Vector2(player.transform.position.x, floor.position.y);
         }
         transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
         bearTaken = false;
