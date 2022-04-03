@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
 
     [Header("Hand")]
     public float handSpeed;
+    public float yBorder;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
