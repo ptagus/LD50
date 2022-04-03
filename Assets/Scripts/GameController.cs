@@ -12,6 +12,27 @@ public class GameController : MonoBehaviour
     int score = 0;
     public Transform floor;
     public GameObject LoseWindow;
+
+    [Header("EnemyPrefabs")]
+    public int HowMuchEnemies;
+    public GameObject[] enemies;
+    public Transform[] spawnPoints;
+    [Header("Enemies")]
+    public float enemySpeed;
+    public float enemyJumpPower;
+    public float JumpTimerMin;
+    public float JumpTimerMax;
+    public float StateChengeTimerMin;
+    public float StateChengeTimerMax;
+    [Header("EnemyAnimation")]
+    public float enemyRunSpeed;
+    public float enemyIdleSpeed;
+    public float enemyJumpSpeed;
+    public float enemyStandSpeed;
+
+    [Header("PlayerParams")]
+    public float playerSpeed;
+    public float PlayerPushPower;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -27,13 +48,23 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-
+        CreateBoys();
     }
 
 //condemn to death
     void Update()
     {
         
+    }
+
+    void CreateBoys()
+    {
+        for (int i=0; i < HowMuchEnemies; i++)
+        {
+            spawnPoints[i].position = new Vector3(spawnPoints[i].position.x, floor.position.y+1, 0);
+            int boy = Random.Range(0, enemies.Length);
+            Instantiate(enemies[boy], spawnPoints[i].transform.position, Quaternion.identity);
+        }
     }
 
     public void SetFloorPosition()
@@ -58,5 +89,15 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
+    }
+
+    public float SetJumpTimer()
+    {
+        return Random.Range(JumpTimerMin, JumpTimerMax);
+    }
+
+    public float SetStateTimer()
+    {
+        return Random.Range(StateChengeTimerMin, StateChengeTimerMax);
     }
 }

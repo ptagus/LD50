@@ -13,61 +13,55 @@ enum BearsStates
 
 public class AIMove : MonoBehaviour
 {
+    GameController gc;
     UnityArmatureComponent animator;
-    public GameObject head;
-    float timer = 3;
-    public bool move;
+    float stateTimer, jumptimer;
+    float jumpforce;
     BearsStates bstate;
-    Vector3 newpos;
-    private Vector3 playerVelocity;
-    bool push;
-    public float speed = 0.2f;
-    private float jumptimer = 1.0f;
-    private float gravityValue = -9.81f;
+    bool push, jumping, move, fall;
+    float speed = 1;
     Rigidbody2D rb;
+    Quaternion quaternion = new Quaternion();
+
+    public GameObject head, legs;
     void Start()
     {
+        move = true;
+        gc = GameController.Instance;
         animator = GetComponent<UnityArmatureComponent>();
-        jumptimer = Random.Range(3, 10);
+        speed = gc.enemySpeed;
+        stateTimer = gc.SetStateTimer();
+        jumptimer = gc.SetJumpTimer();
+        jumpforce = gc.enemyJumpPower;
         bstate = SetNewState();
         rb = GetComponent<Rigidbody2D>();
-        rb.centerOfMass = new Vector2(0, 0.7f);
+        //rb.centerOfMass = new Vector2(0, 0.7f);
+        StartCoroutine("Standing");
     }
+
+
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0)
+        stateTimer -= Time.deltaTime;
+        if (stateTimer < 0 && !jumping)
         {
             bstate = SetNewState();
-            Debug.Log(bstate + "_-_" + this.name);
-            timer = Random.Range(3, 7);
+            stateTimer = gc.SetStateTimer();
         }
+
         jumptimer -= Time.deltaTime;
         if (jumptimer < 0 && move)
         {
             Jump();
-            jumptimer = Random.Range(3, 10);
+            jumptimer = gc.SetJumpTimer();
         }
+
         if (bstate == BearsStates.Moving)
         {
             Vector3 move = new Vector3(speed, 0, 0);
             if (move.x != 0)
                 Moving(move * Time.deltaTime * Mathf.Abs(speed));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            bstate = GetNewState(BearsStates.Moving);
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            bstate = GetNewState(BearsStates.Panic);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RunOut();
-            Debug.Log(speed);
         }
 
         if (push)
@@ -78,14 +72,30 @@ public class AIMove : MonoBehaviour
                 push = false;
             }
         }
+
+        if (fall)
+        {
+            StandUpStart();
+            fall = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Fall();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            animator.animation.Stop();
+            move = false;
+            push = true;
+        }
     }
 
     void Moving(Vector3 pos)
     {
         if (move)
         {
-            //Debug.Log("move" + pos);
-            Quaternion quaternion = new Quaternion();
             if (pos.x < 0)
                 quaternion.eulerAngles = new Vector3(0, 180, 0);
             else
@@ -105,6 +115,7 @@ public class AIMove : MonoBehaviour
         int i = Random.Range(0, 100);
         if (i < 30)
         {
+            animator.animation.Play("Idle");
             return BearsStates.Panic;
         }
         else
@@ -113,29 +124,72 @@ public class AIMove : MonoBehaviour
             {
                 RunOut();
             }
+            animator.animation.Play("Run");
             return BearsStates.Moving;
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Wall")
         {
             RunOut();
-            timer = Random.Range(3, 7);
+            stateTimer = gc.SetStateTimer();
+        }
+    } 
+
+    public void StopJump()
+    {
+        jumping = false;
+        if (bstate == BearsStates.Moving)
+        {
+            animator.animation.timeScale = gc.enemyRunSpeed;
+            animator.animation.Play("Run");
+        }
+        if (bstate == BearsStates.Panic)
+        {
+            animator.animation.timeScale = gc.enemyIdleSpeed;
+            animator.animation.Play("Idle");
         }
     }
 
     public void Jump()
     {
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+        jumping = true;
+        animator.animation.timeScale = gc.enemyJumpSpeed;
+        animator.animation.Play("Jump");
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpforce), ForceMode2D.Impulse);
     }
 
     public void Fall()
     {
+        Debug.Log("fall");
         animator.animation.Stop();
         push = true;
         move = false;
+        fall = true;
+    }
+
+    public void StandUpStart()
+    {        
+        StartCoroutine("Standing");
+    }
+
+    IEnumerator Standing()
+    {
+        quaternion.eulerAngles = new Vector3(0, 0, 0);
+        this.transform.rotation = quaternion;
+        animator.animation.Play("Stand");
+        yield return new WaitForSeconds(gc.enemyStandSpeed);
+        StandUp();
+    }
+
+    public void StandUp()
+    {
+        push = false;
+        move = true;
+        SetNewState();
     }
     void RunOut()
     {
@@ -149,6 +203,10 @@ public class AIMove : MonoBehaviour
         move = false;
         transform.position = parent.position;
         transform.SetParent(parent);
-        //GetComponent<Rigidbody2D>().isKinematic = true;
+    }
+
+    public bool NowMove()
+    {
+        return move;
     }
 }

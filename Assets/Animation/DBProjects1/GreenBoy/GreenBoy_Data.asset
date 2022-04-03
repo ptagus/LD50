@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataName: GreenBoy
   dragonBonesJSON: {fileID: 4900000, guid: f866b9f08bda54f49ae683862b681c4b, type: 3}
-  textureAtlas: []
+  textureAtlas:
+  - textureAtlasJSON: {fileID: 4900000, guid: 68d0e42d124dc454698a7cbb3d6d704d, type: 3}
+    texture: {fileID: 2800000, guid: 3e73fdc522501924db61624d656d0163, type: 3}
+    material: {fileID: 2100000, guid: 636a3a92891f3d24685ff5f069dde6e7, type: 2}
+    uiMaterial: {fileID: 0}

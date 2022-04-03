@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa840b0a04033479ccb2a0f6533865, type: 3}
+  m_Name: OrangeBoy_Data
+  m_EditorClassIdentifier: 
+  dataName: OrangeBoy
+  dragonBonesJSON: {fileID: 4900000, guid: 5102c00dc7f165c4fa643249535557e4, type: 3}
+  textureAtlas:
+  - textureAtlasJSON: {fileID: 4900000, guid: 455ea9829b79afc40bfbe801b16228ef, type: 3}
+    texture: {fileID: 2800000, guid: b2282f686d821cb45ad4cd95acf0a6ef, type: 3}
+    material: {fileID: 2100000, guid: 2a7557a5df8b7cb428f6e991b0614aff, type: 2}
+    uiMaterial: {fileID: 0}
