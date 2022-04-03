@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Head : MonoBehaviour
+public class PlayerLegs : MonoBehaviour
 {
-    public GameObject Enemy;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,9 @@ public class Head : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Enemy.GetComponent<AIMove>().NowMove() && collision.tag == "Floor" && collision.tag != "Player")
-            Enemy.GetComponent<AIMove>().Fall();
+        if (collision.tag == "Enemy")
+        {
+            player.GetComponent<MoveController>().StopJump();
+        }
     }
 }

@@ -35,8 +35,11 @@ public class AIMove : MonoBehaviour
         jumpforce = gc.enemyJumpPower;
         bstate = SetNewState();
         rb = GetComponent<Rigidbody2D>();
-        rb.centerOfMass = new Vector2(0, 0.7f);
+        //rb.centerOfMass = new Vector2(0, 0.7f);
+        StartCoroutine("Standing");
     }
+
+
 
     void Update()
     {
@@ -161,6 +164,7 @@ public class AIMove : MonoBehaviour
 
     public void Fall()
     {
+        Debug.Log("fall");
         animator.animation.Stop();
         push = true;
         move = false;

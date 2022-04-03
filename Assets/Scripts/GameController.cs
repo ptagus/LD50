@@ -13,6 +13,10 @@ public class GameController : MonoBehaviour
     public Transform floor;
     public GameObject LoseWindow;
 
+    [Header("EnemyPrefabs")]
+    public int HowMuchEnemies;
+    public GameObject[] enemies;
+    public Transform[] spawnPoints;
     [Header("Enemies")]
     public float enemySpeed;
     public float enemyJumpPower;
@@ -25,6 +29,10 @@ public class GameController : MonoBehaviour
     public float enemyIdleSpeed;
     public float enemyJumpSpeed;
     public float enemyStandSpeed;
+
+    [Header("PlayerParams")]
+    public float playerSpeed;
+    public float PlayerPushPower;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -40,13 +48,23 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-
+        CreateBoys();
     }
 
 //condemn to death
     void Update()
     {
         
+    }
+
+    void CreateBoys()
+    {
+        for (int i=0; i < HowMuchEnemies; i++)
+        {
+            spawnPoints[i].position = new Vector3(spawnPoints[i].position.x, floor.position.y+1, 0);
+            int boy = Random.Range(0, enemies.Length);
+            Instantiate(enemies[boy], spawnPoints[i].transform.position, Quaternion.identity);
+        }
     }
 
     public void SetFloorPosition()
