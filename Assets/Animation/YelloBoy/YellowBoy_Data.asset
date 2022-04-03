@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1fa840b0a04033479ccb2a0f6533865, type: 3}
-  m_Name: GreenBoy_Data
+  m_Name: YellowBoy_Data
   m_EditorClassIdentifier: 
-  dataName: GreenBoy
-  dragonBonesJSON: {fileID: 4900000, guid: f866b9f08bda54f49ae683862b681c4b, type: 3}
+  dataName: YellowBoy
+  dragonBonesJSON: {fileID: 4900000, guid: 062976b228e49364bb1f648e7a40534b, type: 3}
   textureAtlas:
-  - textureAtlasJSON: {fileID: 4900000, guid: 68d0e42d124dc454698a7cbb3d6d704d, type: 3}
-    texture: {fileID: 2800000, guid: 3e73fdc522501924db61624d656d0163, type: 3}
-    material: {fileID: 2100000, guid: 636a3a92891f3d24685ff5f069dde6e7, type: 2}
+  - textureAtlasJSON: {fileID: 4900000, guid: ab2e0ddfeaa56c84db0e823a3275b3b9, type: 3}
+    texture: {fileID: 2800000, guid: e9d46269600c05640bd945c65877606e, type: 3}
+    material: {fileID: 2100000, guid: 53ae24c21898cbf4987baeac1b75fffe, type: 2}
     uiMaterial: {fileID: 0}
