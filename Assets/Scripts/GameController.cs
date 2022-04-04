@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public Text text;
     int score = 0;
+    int nowlvl = 4;
     public bool ready;
     public Transform floor;
 
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
     {
         for (int i=0; i < HowMuchEnemies; i++)
         {
-            spawnPoints[i].position = new Vector3(spawnPoints[i].position.x, floor.position.y+1, 0);
+            spawnPoints[i].position = new Vector3(spawnPoints[i].position.x, nowlvl, 0);
             int boy = Random.Range(0, enemies.Length);
             Instantiate(enemies[boy], spawnPoints[i].transform.position, Quaternion.identity);
         }
@@ -101,6 +102,7 @@ public class GameController : MonoBehaviour
 
     public void SetFloorDown()
     {
+        nowlvl -= 1;
         GameSoundes.clip = HandTakeABear;
         GameSoundes.Play();
         floor.position -= new Vector3(0, floorSpeedDown, 0);
