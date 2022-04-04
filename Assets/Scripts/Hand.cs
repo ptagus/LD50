@@ -71,19 +71,13 @@ public class Hand : MonoBehaviour
         Debug.Log("Handing!" + collision.name);
         if (!animstart && (collision.tag == "Player" || collision.tag == "Enemy" || collision.tag == "Floor"))
         {
-            Debug.Log("Great Handing!" + collision.name);
             Taken();
-            animstart = true;
-            
+            animstart = true;            
         }
     }
 
     public void TakeBear(string tag, GameObject go)
     {
-        if (tag == "Player")
-        {
-            gc.ShowLoseWindow();
-        }
         if (tag == "Floor")
         {
             handOn = false;
@@ -93,6 +87,7 @@ public class Hand : MonoBehaviour
             bear.GetComponent<Rigidbody2D>().isKinematic = true;
             bear.transform.localScale = new Vector3(0.25f, 0.25f, 1);
             gc.SetFloorDown();
+            return;
         }
         if (tag == "Enemy")
         {
@@ -102,6 +97,11 @@ public class Hand : MonoBehaviour
             bear = go;
             needNew = true;
             gc.SetFloorDown();
+            return;
+        }
+        if (tag == "Player")
+        {
+            gc.ShowLoseWindow();
         }
     }
 
@@ -132,9 +132,9 @@ public class Hand : MonoBehaviour
         }
         else
         {
-            playerPos = new Vector2(Random.Range(-25, 25), floor.position.y);
+            playerPos = new Vector2(Random.Range(-15, 15), floor.position.y);
         }
-        transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
+        transform.position = new Vector3(Random.Range(-15, 15), transform.position.y, 0);
         bearTaken = false;
         speed += deltaSpeed;
         if (gc.end)
