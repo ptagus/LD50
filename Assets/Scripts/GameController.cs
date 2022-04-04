@@ -17,10 +17,12 @@ public class GameController : MonoBehaviour
     public GameObject LoseWindow;
     public GameObject Pause;
     public Text scoreText;
+
     [Header("EnemyPrefabs")]
     public int HowMuchEnemies;
     public GameObject[] enemies;
     public Transform[] spawnPoints;
+
     [Header("Enemies")]
     public float enemySpeed;
     public float enemyJumpPower;
@@ -28,6 +30,7 @@ public class GameController : MonoBehaviour
     public float JumpTimerMax;
     public float StateChengeTimerMin;
     public float StateChengeTimerMax;
+
     [Header("EnemyAnimation")]
     public float enemyRunSpeed;
     public float enemyIdleSpeed;
@@ -37,7 +40,8 @@ public class GameController : MonoBehaviour
     [Header("PlayerParams")]
     public float playerSpeed;
     public float PlayerPushPower;
-
+    public float PlayerPushPowerY;
+    public float PlayerMass;
     [Header("Floor")]
     public float floorSpeedDown;
     public float endOfFloor;

@@ -35,7 +35,7 @@ public class Hand : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (ready)
         {
@@ -74,15 +74,16 @@ public class Hand : MonoBehaviour
             Debug.Log("Great Handing!" + collision.name);
             Taken();
             animstart = true;
-            if (collision.tag == "Player")
-            {
-                gc.ShowLoseWindow();
-            }
+            
         }
     }
 
     public void TakeBear(string tag, GameObject go)
     {
+        if (tag == "Player")
+        {
+            gc.ShowLoseWindow();
+        }
         if (tag == "Floor")
         {
             handOn = false;
@@ -126,12 +127,12 @@ public class Hand : MonoBehaviour
         animator.animation.Stop();
         if (takePlayerCount > 1)
         {
-            playerPos = player.transform.position - Vector3.up;
+            playerPos = new Vector2(player.transform.position.x, floor.position.y);
             takePlayerCount = 0;
         }
         else
         {
-            playerPos = new Vector2(player.transform.position.x, floor.position.y);
+            playerPos = new Vector2(Random.Range(-25, 25), floor.position.y);
         }
         transform.position = new Vector3(Random.Range(-20,20), transform.position.y, 0);
         bearTaken = false;

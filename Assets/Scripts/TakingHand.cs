@@ -12,7 +12,7 @@ public class TakingHand : MonoBehaviour
     {
         if (!take)
         {
-            if (collision.tag == "Enemy" || collision.tag == "Floor")
+            if (collision.tag == "Enemy" || collision.tag == "Floor" || collision.tag == "Player")
             {
                 take = true;
                 hand.GetComponent<Hand>().TakeBear(collision.tag, collision.gameObject);

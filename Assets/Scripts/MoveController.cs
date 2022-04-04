@@ -10,7 +10,7 @@ public class MoveController : MonoBehaviour
 
     GameObject enemy;
 
-    float pushpower, currentPushPower;
+    float pushpower, currentPushPower, currentPushPowerY;
     float playerSpeed;
 
     bool groundedPlayer, move, jumping, ready;
@@ -21,6 +21,8 @@ public class MoveController : MonoBehaviour
         playerSpeed = gc.playerSpeed;
         pushpower = gc.PlayerPushPower;
         currentPushPower = pushpower;
+        currentPushPowerY = gc.PlayerPushPowerY;
+        GetComponent<Rigidbody2D>().mass = gc.PlayerMass;
         animator.animation.timeScale = gc.enemyIdleSpeed;
         animator.animation.Play("Stand", 1);
     }
@@ -29,12 +31,7 @@ public class MoveController : MonoBehaviour
     void Update()
     {
         if (ready)
-        {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-            if (move.x != 0)
-                Moving(move * Time.deltaTime * playerSpeed);
-            if (move.x == 0)
-                Stay();
+        {            
 
             if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer && !jumping)
             {
@@ -48,6 +45,18 @@ public class MoveController : MonoBehaviour
         else
         {
             ready = gc.ready;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (ready)
+        {
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+            if (move.x != 0)
+                Moving(move * Time.deltaTime * playerSpeed);
+            if (move.x == 0)
+                Stay();
         }
     }
 
@@ -142,7 +151,7 @@ public class MoveController : MonoBehaviour
                 currentPushPower = -pushpower;
             }
             enemy.GetComponent<AIMove>().Fall();
-            enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(currentPushPower, 0), ForceMode2D.Impulse);
+            enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(currentPushPower, currentPushPowerY), ForceMode2D.Impulse);
         }
     }
 }

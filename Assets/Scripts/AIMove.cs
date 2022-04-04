@@ -59,12 +59,7 @@ public class AIMove : MonoBehaviour
                 jumptimer = gc.SetJumpTimer();
             }
 
-            if (bstate == BearsStates.Moving)
-            {
-                Vector3 move = new Vector3(speed, 0, 0);
-                if (move.x != 0)
-                    Moving(move * Time.deltaTime * Mathf.Abs(speed));
-            }
+            
 
             if (push)
             {
@@ -96,6 +91,19 @@ public class AIMove : MonoBehaviour
         else
         {
             ready = gc.ready;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (ready)
+        {
+            if (bstate == BearsStates.Moving)
+            {
+                Vector3 move = new Vector3(speed, 0, 0);
+                if (move.x != 0)
+                    Moving(move * Time.deltaTime * Mathf.Abs(speed));
+            }
         }
     }
 
