@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; private set; }
     public Text text;
     int score = 0;
-    int nowlvl = 4;
+    int nowlvl = 11;
     public bool ready;
     public Transform floor;
 
