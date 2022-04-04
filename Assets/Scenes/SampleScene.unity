@@ -735,7 +735,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0061587095, y: -0.07400918}
+  m_Offset: {x: 0.31193334, y: -0.3300345}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -746,7 +746,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3245132, y: 1.8077607}
+  m_Size: {x: 1.6883291, y: 2.3198113}
   m_EdgeRadius: 0
 --- !u!1 &308559405
 GameObject:
@@ -1141,7 +1141,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7446224, y: -0.85079813}
+  m_Offset: {x: 0.38773876, y: -0.85079813}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1152,7 +1152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8882016, y: 1.0671682}
+  m_Size: {x: 1.1744344, y: 1.0671682}
   m_EdgeRadius: 0
 --- !u!114 &329658527
 MonoBehaviour:
@@ -1369,7 +1369,7 @@ MonoBehaviour:
   LoseWindow: {fileID: 828698794}
   Pause: {fileID: 156810655}
   scoreText: {fileID: 2020248105}
-  HowMuchEnemies: 5
+  HowMuchEnemies: 7
   enemies:
   - {fileID: 3819260003919734819, guid: fbc30a36874b82046a77aba00562293b, type: 3}
   - {fileID: 3423508641118236381, guid: 2d57056fe4a732543a58a806ccaf2213, type: 3}
@@ -1396,13 +1396,13 @@ MonoBehaviour:
   enemyIdleSpeed: 1
   enemyJumpSpeed: 0.5
   enemyStandSpeed: 1
-  playerSpeed: 8
-  PlayerPushPower: 15
+  playerSpeed: 12
+  PlayerPushPower: 30
   floorSpeedDown: 1
-  endOfFloor: 1
+  endOfFloor: -15
   end: 0
-  handSpeed: 10
-  handDeltaSpeed: 2
+  handSpeed: 15
+  handDeltaSpeed: 1
   yBorder: 35
   GameSoundes: {fileID: 539522080}
   HandTakeABear: {fileID: 8300000, guid: 9d2752fd80a400943ba18a5d7c2984cd, type: 3}
